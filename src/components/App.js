@@ -1,7 +1,8 @@
 import React from 'react';
+import Search from './Search';
 
 const App = () => 
-  <div>
-    <h1>flickr search</h1>
-  </div>
+  <Search />
+
+
 export default App;
