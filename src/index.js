@@ -2,10 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import imageSearchApp from './reducers';
+import imageSearchReducer from './reducers';
 import App from './components/App';
 
-let store = createStore(imageSearchApp);
+let store = createStore(imageSearchReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 render(
 	<Provider store={store}>

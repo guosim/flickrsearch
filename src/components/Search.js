@@ -13,7 +13,7 @@ let Search = ({ dispatch }) => {
 			}}
 		>
 			<input 
-				ref="tag"
+				ref={node => {input = node}}
 				type="text"
 				placeholder="Image Search"
 			/>

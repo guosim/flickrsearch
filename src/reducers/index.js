@@ -1,4 +1,4 @@
-const imageSearchApp = (state = '', action) => {
+const imageSearchReducer = (state = '', action) => {
 	switch (action.type) {
 		case 'SEARCH':
 			return action.tag;
@@ -7,4 +7,4 @@ const imageSearchApp = (state = '', action) => {
 	}
 }
 
-export default imageSearchApp;
+export default imageSearchReducer;

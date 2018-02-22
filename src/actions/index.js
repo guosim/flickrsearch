@@ -5,4 +5,6 @@ const imageSearch = tag => {
 	}
 }
 
-export imageSearch;
+export {
+	imageSearch
+};
