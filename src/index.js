@@ -1,6 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import imageSearchApp from './reducers';
 import App from './components/App';
 
-render(<App />, document.getElementById('root'));
+let store = createStore(imageSearchApp);
+
+render(
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
+);
 
