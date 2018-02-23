@@ -1,5 +1,8 @@
 import fetch from 'cross-fetch'
 
+export const CHOOSE_TAG = 'CHOOSE_TAG';
+export const REQUEST_IMAGES = 'REQUEST_IMAGES';
+export const RECEIVE_IMAGES = 'RECEIVE_IMAGES';
 
 //Synchronous actions
 export function chooseTag(tag) {
