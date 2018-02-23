@@ -34,8 +34,12 @@ function receiveImages(tag, json) {
 export function fetchImages(tag="") {
   return dispatch => {
     dispatch(requestImages(tag))
-    return fetchJsonp(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`)
-      .then(response => dispatch(receiveImages(tag, response)))
+    return fetchJsonp(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`, 
+      {jsonpCallbackFunction: 'jsonFlickrFeed'}
+      )
+      .then(response => response.json())
+      .then(json => console.log(json))
+      //.then(response => dispatch(receiveImages(tag, response)))
       .catch (err => console.log(err))
   }
 }
