@@ -14,6 +14,23 @@ function chooseTag(state = '', action) {
   }
 }
 
+function imagesByTag(state={isFetching:false, images:[]}, action) {
+  switch (action.type) {
+    case REQUEST_IMAGES:
+      return {
+        ...state,
+        isFetching:true
+      }
+    case RECEIVE_IMAGES:
+      return {
+        isFetching:false,
+        images:action.images
+      }
+    default:
+      return state;
+  }
+}
+/*
 function images(
   state = {
     isFetching: false,
@@ -36,6 +53,7 @@ function images(
   }
 }
 
+/*
 function imagesByTag(state = {}, action) {
   switch (action.type) {
     case RECEIVE_IMAGES:
@@ -46,11 +64,11 @@ function imagesByTag(state = {}, action) {
     default:
       return state
   }
-}
+}*/
 
 const rootReducer = combineReducers({
   chooseTag,
   imagesByTag
 })
 
-export default rootReducer
+export default rootReducer;
