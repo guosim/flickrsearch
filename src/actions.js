@@ -1,64 +1,36 @@
 import fetch from 'cross-fetch'
 
-export const REQUEST_POSTS = 'REQUEST_POSTS'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const SELECT_SUBREDDIT = 'SELECT_SUBREDDIT'
-export const INVALIDATE_SUBREDDIT = 'INVALIDATE_SUBREDDIT'
 
-export function selectSubreddit(subreddit) {
+//Synchronous actions
+export function chooseTag(tag) {
   return {
-    type: SELECT_SUBREDDIT,
-    subreddit
+    type: CHOOSE_TAG,
+    tag
   }
 }
 
-export function invalidateSubreddit(subreddit) {
+function requestImages(tag) {
   return {
-    type: INVALIDATE_SUBREDDIT,
-    subreddit
+    type: REQUEST_IMAGES,
+    tag
   }
 }
 
-function requestPosts(subreddit) {
+function receiveImages(tag, json) {
   return {
-    type: REQUEST_POSTS,
-    subreddit
+    type: RECEIVE_IMAGES,
+    tag,
+    images: json.data.children.map(child => child.data),
   }
 }
 
-function receivePosts(subreddit, json) {
-  return {
-    type: RECEIVE_POSTS,
-    subreddit,
-    posts: json.data.children.map(child => child.data),
-    receivedAt: Date.now()
-  }
-}
 
-function fetchPosts(subreddit) {
+//Async actions
+function fetchImages(tag) {
   return dispatch => {
-    dispatch(requestPosts(subreddit))
-    return fetch(`https://www.reddit.com/r/${subreddit}.json`)
+    dispatch(requestImages(tag))
+    return fetch(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`)
       .then(response => response.json())
-      .then(json => dispatch(receivePosts(subreddit, json)))
-  }
-}
-
-function shouldFetchPosts(state, subreddit) {
-  const posts = state.postsBySubreddit[subreddit]
-  if (!posts) {
-    return true
-  } else if (posts.isFetching) {
-    return false
-  } else {
-    return posts.didInvalidate
-  }
-}
-
-export function fetchPostsIfNeeded(subreddit) {
-  return (dispatch, getState) => {
-    if (shouldFetchPosts(getState(), subreddit)) {
-      return dispatch(fetchPosts(subreddit))
-    }
+      .then(json => dispatch(receiveImages(tag, json)))
   }
 }
