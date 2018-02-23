@@ -12,7 +12,7 @@ let Search = ({ dispatch }) => {
 			onSubmit={e => {
 				e.preventDefault();
 				dispatch(chooseTag(input.value));
-				dispatch(fetchImages());
+				dispatch(fetchImages(input.value));
 			}}
 		>
 			<input 

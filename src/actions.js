@@ -31,7 +31,7 @@ function receiveImages(tag, json) {
 
 
 //Async actions
-export function fetchImages(tag="") {
+export function fetchImages(tag) {
   return dispatch => {
     dispatch(requestImages(tag))
     return fetchJsonp(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`, 
@@ -39,8 +39,6 @@ export function fetchImages(tag="") {
       )
       .then(response => response.json())
       .then(json => dispatch(receiveImages(tag, json)))
-      //.then(json => console.log(json.items.map(child => child.media.m)))
-      //.then(response => dispatch(receiveImages(tag, response)))
       .catch(err => console.log(err))
   }
 }
