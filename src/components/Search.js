@@ -2,11 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { chooseTag, fetchImages } from '../actions';
 
+import './Search.css';
+
 let Search = ({ dispatch }) => {
 	let input;
 
 	return (
-		<form
+		<form className="search"
 			onSubmit={e => {
 				e.preventDefault();
 				dispatch(chooseTag(input.value));

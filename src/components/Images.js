@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Images = ({images, tag}) => 
+import './Images.css';
 
-	<ul>
+const Images = ({images, tag}) => 
+	<ul className="images">
 		{ images.map((url, index) => <li key={index}><img src={url} alt={tag} /></li>) }
 	</ul>
 
