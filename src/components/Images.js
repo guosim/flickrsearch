@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 const Images = ({images, tag}) => 
+
 	<ul>
-		{images.map(index => <li key={index}><img src={index} alt={tag} /></li>)}
+		{ images.map((url, index) => <li key={index}><img src={url} alt={tag} /></li>) }
 	</ul>
 
 const mapStateToProps = state => {

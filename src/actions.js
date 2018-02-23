@@ -25,7 +25,7 @@ function receiveImages(tag, json) {
   return {
     type: RECEIVE_IMAGES,
     tag,
-    images: [json.items.map(child => child.media.m)]
+    images: json.items.map(child => child.media.m)
   }
 }
 
