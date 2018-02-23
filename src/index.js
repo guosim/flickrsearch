@@ -1,17 +1,11 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import imageSearchReducer from './reducers';
-import App from './components/App';
-
-let store = createStore(imageSearchReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-);
+import Root from './components/Root';
 
 render(
-	<Provider store={store}>
-		<App />
-	</Provider>,
+	<Root />,
 	document.getElementById('root')
 );
 
