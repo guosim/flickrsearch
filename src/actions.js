@@ -1,4 +1,6 @@
-import fetch from 'cross-fetch'
+//import fetch from 'cross-fetch';
+import fetchJsonp from 'fetch-jsonp';
+
 
 export const CHOOSE_TAG = 'CHOOSE_TAG';
 export const REQUEST_IMAGES = 'REQUEST_IMAGES';
@@ -29,11 +31,11 @@ function receiveImages(tag, json) {
 
 
 //Async actions
-export function fetchImages(tag="cats") {
+export function fetchImages(tag="") {
   return dispatch => {
     dispatch(requestImages(tag))
-    return fetch(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveImages(tag, json)))
+    return fetchJsonp(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`)
+      .then(response => dispatch(receiveImages(tag, response)))
+      .catch (err => console.log(err))
   }
 }
