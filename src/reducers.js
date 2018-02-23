@@ -1,57 +1,47 @@
 import { combineReducers } from 'redux'
 import {
-  SELECT_SUBREDDIT,
-  INVALIDATE_SUBREDDIT,
-  REQUEST_POSTS,
-  RECEIVE_POSTS
+  CHOOSE_TAG,
+  REQUEST_IMAGES,
+  RECEIVE_IMAGES
 } from './actions'
 
-function selectedSubreddit(state = 'reactjs', action) {
+function chooseTag(state = '', action) {
   switch (action.type) {
-    case SELECT_SUBREDDIT:
-      return action.subreddit
+    case CHOOSE_TAG:
+      return action.tag
     default:
       return state
   }
 }
 
-function posts(
+function images(
   state = {
     isFetching: false,
-    didInvalidate: false,
-    items: []
+    images: []
   },
   action
 ) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
+    case REQUEST_IMAGES:
       return Object.assign({}, state, {
-        didInvalidate: true
+        isFetching: true
       })
-    case REQUEST_POSTS:
-      return Object.assign({}, state, {
-        isFetching: true,
-        didInvalidate: false
-      })
-    case RECEIVE_POSTS:
+    case RECEIVE_IMAGES:
       return Object.assign({}, state, {
         isFetching: false,
-        didInvalidate: false,
-        items: action.posts,
-        lastUpdated: action.receivedAt
+        images: action.images
       })
     default:
       return state
   }
 }
 
-function postsBySubreddit(state = {}, action) {
+function imagesByTag(state = {}, action) {
   switch (action.type) {
-    case INVALIDATE_SUBREDDIT:
-    case RECEIVE_POSTS:
-    case REQUEST_POSTS:
+    case RECEIVE_IMAGES:
+    case REQUEST_IMAGES:
       return Object.assign({}, state, {
-        [action.subreddit]: posts(state[action.subreddit], action)
+        [action.tag]: images(state[action.tag], action)
       })
     default:
       return state
@@ -59,8 +49,8 @@ function postsBySubreddit(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  postsBySubreddit,
-  selectedSubreddit
+  chooseTag,
+  imagesByTag
 })
 
 export default rootReducer

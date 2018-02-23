@@ -23,13 +23,13 @@ function receiveImages(tag, json) {
   return {
     type: RECEIVE_IMAGES,
     tag,
-    images: json.data.children.map(child => child.data),
+    images: json.data.children.map(child => child.data)
   }
 }
 
 
 //Async actions
-function fetchImages(tag) {
+export function fetchImages(tag="cats") {
   return dispatch => {
     dispatch(requestImages(tag))
     return fetch(`https://api.flickr.com/services/feeds/photos_public.gne?format=json&tags=${tag}`)

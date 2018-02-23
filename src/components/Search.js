@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { imageSearch } from '../actions';
+import { chooseTag, fetchImages } from '../actions';
 
 let Search = ({ dispatch }) => {
 	let input;
@@ -9,7 +9,8 @@ let Search = ({ dispatch }) => {
 		<form
 			onSubmit={e => {
 				e.preventDefault();
-				dispatch(imageSearch(input.value))
+				dispatch(chooseTag(input.value));
+				dispatch(fetchImages());
 			}}
 		>
 			<input 
