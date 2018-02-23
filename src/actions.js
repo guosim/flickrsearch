@@ -25,7 +25,7 @@ function receiveImages(tag, json) {
   return {
     type: RECEIVE_IMAGES,
     tag,
-    images: json.data.children.map(child => child.data)
+    images: [json.items.map(child => child.media.m)]
   }
 }
 
@@ -38,8 +38,9 @@ export function fetchImages(tag="") {
       {jsonpCallbackFunction: 'jsonFlickrFeed'}
       )
       .then(response => response.json())
-      .then(json => console.log(json))
+      .then(json => dispatch(receiveImages(tag, json)))
+      //.then(json => console.log(json.items.map(child => child.media.m)))
       //.then(response => dispatch(receiveImages(tag, response)))
-      .catch (err => console.log(err))
+      .catch(err => console.log(err))
   }
 }
