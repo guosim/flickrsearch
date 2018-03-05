@@ -5,7 +5,7 @@ import './Images.css';
 
 const Images = ({images, tag}) => 
 	<ul className="images">
-		{ images.map((url, index) => <li key={index}><img src={url} alt={tag} /></li>) }
+		{ images.map((url) => <li key={url}><img src={url} alt={tag} /></li>) }
 	</ul>
 
 const mapStateToProps = state => {
