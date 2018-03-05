@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { chooseTag, fetchImages } from '../actions';
 
 import './Search.css';
 
-let Search = ({ dispatch }) => {
+const Search = props => {
 	let input;
 
 	return (
 		<form className="search"
 			onSubmit={e => {
 				e.preventDefault();
-				dispatch(chooseTag(input.value));
-				dispatch(fetchImages(input.value));
+				props.chooseTag(input.value);
+				props.fetchImages(input.value);
 			}}
 		>
 			<input 
@@ -27,6 +28,14 @@ let Search = ({ dispatch }) => {
 	)
 }
 
-Search = connect()(Search);
+const mapStateToProps = state => {
+	return {
+		loading: state.isFetching
+	}
+}
 
-export default Search;
+const mapDispatchToProps = dispatch => 
+	bindActionCreators({ chooseTag, fetchImages }, dispatch)
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
