@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { chooseTag, fetchImages } from '../actions';
 
+import { BarLoader } from 'react-spinners';
 import './Search.css';
 
 const Search = props => {
@@ -22,7 +23,7 @@ const Search = props => {
 				placeholder="Image Search"
 			/>
 			<button type="submit">
-				Search
+				{props.loading ? <BarLoader width={43} /> : "Search"}
 			</button>
 		</form>
 	)
@@ -30,7 +31,7 @@ const Search = props => {
 
 const mapStateToProps = state => {
 	return {
-		loading: state.isFetching
+		loading: state.imagesByTag.isFetching
 	}
 }
 
